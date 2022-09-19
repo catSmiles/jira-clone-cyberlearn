@@ -1,0 +1,12 @@
+.my-drawer {
+    .ant-drawer-close {
+        display: flex;
+        align-items: center;
+        border: none;
+        outline: none;
+        transition: all 0.2s ease-in-out;
+    }
+    .ant-drawer-close:hover {
+        color: black;
+    }
+}

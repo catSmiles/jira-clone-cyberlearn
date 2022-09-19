@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { Router, Switch, Route } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+
+import UserLoginTemplate from './templates/UserTemplate';
+import HomeTemplate from './templates/HomeTemplate';
+import Login from './pages/CyberBugs/Login';
+import Hero from './components/Hero';
+import Loading from './components/Loading';
+import Home from './pages/Home';
+import CyberBugsTemplate from './templates/CyberBugsTemplate';
+import CyberBugs from './redux/sagas/Cyberbugs/CyberBugs';
+import CreateProject from './pages/CyberBugs/CreateProject';
+import ProjectManagement from './pages/CyberBugs/ProjectManagement';
+import DrawerCyberBugs from './HOC/DrawerCyberBugs';
+
+export const history = createBrowserHistory();
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router history={history}>
+            <Loading />
+            <DrawerCyberBugs />
+            <Switch>
+                <Route exact path="/" component={Hero} />
+                <UserLoginTemplate exact path="/login" Component={Login} />
+
+                <HomeTemplate exact path="/home" Component={Home} />
+
+                <CyberBugsTemplate exact path="/cyberbugs" Component={CyberBugs} />
+                <CyberBugsTemplate exact path="/create-project" Component={CreateProject} />
+                <CyberBugsTemplate exact path="/Project-management" Component={ProjectManagement} />
+            </Switch>
+        </Router>
+    );
 }
 
 export default App;
