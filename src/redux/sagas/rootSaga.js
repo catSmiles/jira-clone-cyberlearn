@@ -25,6 +25,7 @@ export function* rootSaga() {
     ProjectSaga.theoDoiGetProjectDetailSaga(),
     ProjectSaga.theoDoiCreateTask(),
     ProjectSaga.theoDoiGetTaskDetail(),
+    ProjectSaga.theoDoiUpdateStatusTask(),
 
     // nghiep vu task type
     TaskTypeSaga.theoDoiGetAllTaskTypeSaga(),

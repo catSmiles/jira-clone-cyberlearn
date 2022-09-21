@@ -3,7 +3,11 @@ import images from '~/assets/images';
 import { useSelector, useDispatch } from 'react-redux';
 import parse from 'html-react-parser';
 import { useEffect } from 'react';
-import { GET_ALL_PRIORITY_SAGA, GET_ALL_STATUS_SAGA } from '~/redux/constants/CyberBugs/UserCyberBugsSaga';
+import {
+  GET_ALL_PRIORITY_SAGA,
+  GET_ALL_STATUS_SAGA,
+  UPDATE_STATUS_TASK_SAGA,
+} from '~/redux/constants/CyberBugs/UserCyberBugsSaga';
 import { Avatar, InputNumber, Slider, Tooltip } from 'antd';
 
 const renderDescription = (text) => {
@@ -183,7 +187,18 @@ function ModalCyberBugs(props) {
                         name="statusId"
                         // defaultValue={taskDetail.statusId}
                         value={taskDetail.statusId}
-                        onChange={() => {}}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          console.log('value of select status task: ', value);
+                          dispatch({
+                            type: UPDATE_STATUS_TASK_SAGA,
+                            taskStatusUpdate: {
+                              taskId: taskDetail.taskId,
+                              statusId: value,
+                              projectId: taskDetail.projectId,
+                            },
+                          });
+                        }}
                       >
                         {arrStatus?.map((status) => (
                           <option key={status.statusId} value={status.statusId}>
@@ -307,7 +322,8 @@ function ModalCyberBugs(props) {
                       max={20}
                       id="originalEstimate"
                       name="originalEstimate"
-                      defaultValue={taskDetail.originalEstimate}
+                      // defaultValue={taskDetail.originalEstimate}
+                      value={taskDetail.originalEstimate}
                       style={{ width: '100%' }}
                     />
                   </div>

@@ -38,6 +38,9 @@ export const GET_USER_BY_PROJECT_ID_SAGA = 'GET_USER_BY_PROJECT_ID_SAGA';
 // -- Get task detail
 export const GET_TASK_DETAIL_SAGA = 'GET_TASK_DETAIL_SAGA';
 
+// -- update Status task
+export const UPDATE_STATUS_TASK_SAGA = 'UPDATE_STATUS_TASK_SAGA';
+
 // ----------- Action - Normal --------
 // -- Login
 export const USER_SIGN_IN = 'USER_SIGN_IN';
@@ -82,3 +85,6 @@ export const GET_USER_BY_PROJECT_ID = 'GET_USER_BY_PROJECT_ID';
 
 // -- Get task detail
 export const GET_TASK_DETAIL = 'GET_TASK_DETAIL';
+
+// -- update Status task
+export const UPDATE_STATUS_TASK = 'UPDATE_STATUS_TASK';

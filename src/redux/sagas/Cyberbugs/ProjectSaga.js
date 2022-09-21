@@ -15,6 +15,7 @@ import {
   GET_USER_BY_PROJECT_ID_SAGA,
   REMOVE_USER_FROM_PROJECT_SAGA,
   UPDATE_PROJECT_SAGA,
+  UPDATE_STATUS_TASK_SAGA,
 } from '~/redux/constants/CyberBugs/UserCyberBugsSaga';
 import { DISPLAY_LOADING, HIDE_LOADING } from '~/redux/constants/LoadingConstants';
 import { projectService } from '~/services/ProjectService';
@@ -302,4 +303,45 @@ function* getTaskDetailSaga(action) {
 
 export function* theoDoiGetTaskDetail() {
   yield takeLatest(GET_TASK_DETAIL_SAGA, getTaskDetailSaga);
+}
+
+// ------- update Status task
+function* updateStatusTaskSaga(action) {
+  yield put({
+    type: DISPLAY_LOADING,
+  });
+
+  yield delay(300);
+
+  try {
+    // cap nhat api status cho task hien tai (task dang mo modal)
+    const { status } = yield call(() => projectService.updateStatusTask(action.taskStatusUpdate));
+    if (status === STATUS_CODE.SUCCESS) {
+      //  Some thing here
+
+      // cap nhat lai du lieu - get task detail
+      yield put({
+        type: GET_TASK_DETAIL_SAGA,
+        taskId: action.taskStatusUpdate.taskId,
+      });
+
+      // Neu cap nhat thanh cong -> goi lai get project detail saga -> sap xep (cap nhat) lai thong tin cac task
+      yield put({
+        type: GET_PROJECT_DETAIL_SAGA,
+        projectId: action.taskStatusUpdate.projectId,
+      });
+
+      // reload page - get project detail
+    }
+  } catch (error) {
+    console.log('error updateStatusTaskSaga: ', error);
+  }
+
+  yield put({
+    type: HIDE_LOADING,
+  });
+}
+
+export function* theoDoiUpdateStatusTask() {
+  yield takeLatest(UPDATE_STATUS_TASK_SAGA, updateStatusTaskSaga);
 }
