@@ -8,8 +8,12 @@ class UserService extends baseService {
     signIn = (userInfo) => {
         return this.post('/api/Users/signin', userInfo);
     };
-    getUser = (keyword) => {
+    getUser = (keyword = '') => {
+        if (keyword === '') return this.get('/api/Users/getUser');
         return this.get(`/api/Users/getUser?keyword=${keyword}`);
+    };
+    getUserByProjectId = (idProject) => {
+        return this.get(`/api/Users/getUserByProjectId?idProject=${idProject}`);
     };
 }
 

@@ -10,7 +10,7 @@ import './styles.scss';
 
 const DrawerCyberBugs = () => {
     const dispatch = useDispatch();
-    const { visible, ComponentContent, callbackSubmit } = useSelector((state) => state.DrawerCyberBugsReducer);
+    const { visible, ComponentContent, callbackSubmit, title } = useSelector((state) => state.DrawerCyberBugsReducer);
     // console.log('visible', visible);
 
     // const showDrawer = () => {
@@ -28,7 +28,7 @@ const DrawerCyberBugs = () => {
             </Button> */}
             <Drawer
                 className="my-drawer"
-                title="Create a new account"
+                title={title}
                 width={720}
                 onClose={onClose}
                 visible={visible}

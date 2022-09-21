@@ -15,8 +15,9 @@ function CyberBugsTemplate({ Component, ...restProps }) {
                     <div className="jira">
                         <SideBar />
                         <Menu />
-                        <Component />
-                        <ModalCyberBugs {...propsRoute} />
+                        <Component {...propsRoute} />
+                        {/* <ModalCyberBugs {...propsRoute} /> */}
+                        <ModalCyberBugs />
                     </div>
                 );
             }}

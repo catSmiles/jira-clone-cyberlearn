@@ -19,6 +19,7 @@ import {
 import FormEditProject from '~/components/Form/EditProject';
 import { useState } from 'react';
 import { useDebounce } from '~/hooks';
+import { NavLink } from 'react-router-dom';
 
 const onChange = (pagination, filters, sorter) => {
     console.log('params', pagination, filters, sorter);
@@ -68,6 +69,9 @@ function ProjectManagement() {
                 const projectName2 = item2.projectName.toLowerCase().trim();
                 if (projectName1 < projectName2) return -1;
                 return 1;
+            },
+            render: (text, record, index) => {
+                return <NavLink to={`/project-detail/${record.id}`}>{text}</NavLink>;
             },
         },
         // {
@@ -262,6 +266,7 @@ function ProjectManagement() {
                             const action = {
                                 type: OPEN_FORM_EDIT_PROJECT,
                                 Component: <FormEditProject />,
+                                title: 'Edit Project',
                             };
                             dispatch(action);
 

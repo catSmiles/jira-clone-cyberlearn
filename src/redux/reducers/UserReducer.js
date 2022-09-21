@@ -1,5 +1,5 @@
 import { USER_LOGIN } from '~/util/constants/settingSystem';
-import { GET_USER, USER_SIGN_IN } from '../constants/CyberBugs/UserCyberBugsSaga';
+import { GET_USER, GET_USER_BY_PROJECT_ID, USER_SIGN_IN } from '../constants/CyberBugs/UserCyberBugsSaga';
 
 let user = {};
 
@@ -10,6 +10,7 @@ if (localStorage.getItem(USER_LOGIN)) {
 const stateDefault = {
     userLogin: user,
     usersSearch: [],
+    usersOnProject: [],
 };
 
 export const UserReducer = (state = stateDefault, action) => {
@@ -21,6 +22,10 @@ export const UserReducer = (state = stateDefault, action) => {
         }
         case GET_USER: {
             state.usersSearch = action.usersSearch;
+            return { ...state };
+        }
+        case GET_USER_BY_PROJECT_ID: {
+            state.usersOnProject = action.usersOnProject;
             return { ...state };
         }
 

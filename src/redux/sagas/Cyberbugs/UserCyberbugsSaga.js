@@ -4,7 +4,14 @@ import { userService } from '~/services/UserService';
 import { USER_LOGIN, TOKEN, STATUS_CODE } from '~/util/constants/settingSystem';
 import { history } from '~/App';
 import { DISPLAY_LOADING, HIDE_LOADING } from '~/redux/constants/LoadingConstants';
-import { GET_USER, GET_USER_SAGA, USER_SIGN_IN, USER_SIGN_IN_API } from '~/redux/constants/CyberBugs/UserCyberBugsSaga';
+import {
+    GET_USER,
+    GET_USER_BY_PROJECT_ID,
+    GET_USER_BY_PROJECT_ID_SAGA,
+    GET_USER_SAGA,
+    USER_SIGN_IN,
+    USER_SIGN_IN_API,
+} from '~/redux/constants/CyberBugs/UserCyberBugsSaga';
 
 // quan ly action Sign in Saga - Action saga return ve function giong nhu trong thunk
 // Action thuong tao trong file rieng (file chua action thuong)
@@ -73,4 +80,32 @@ function* getUserSaga(action) {
 
 export function* theoDoiGetUser() {
     yield takeLatest(GET_USER_SAGA, getUserSaga);
+}
+
+// Get user by project id
+function* getUserByProjectIdSaga(action) {
+    try {
+        const { data, status } = yield call(() => userService.getUserByProjectId(action.idProject));
+        console.log('data from call api getUserByProjectIdSaga: ', data);
+        if (status === STATUS_CODE.SUCCESS) {
+            // Dua data len reducer
+            yield put({
+                type: GET_USER_BY_PROJECT_ID,
+                usersOnProject: data.content,
+            });
+        }
+    } catch (error) {
+        // console.log('error getUserSaga: ', error);
+        console.log('response getUserSaga: ', error.response?.data);
+        if (error.response?.data.statusCode === STATUS_CODE.NOT_FOUND) {
+            yield put({
+                type: GET_USER_BY_PROJECT_ID,
+                usersOnProject: [],
+            });
+        }
+    }
+}
+
+export function* theoDoiGetUserByProjectId() {
+    yield takeLatest(GET_USER_BY_PROJECT_ID_SAGA, getUserByProjectIdSaga);
 }

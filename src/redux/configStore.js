@@ -4,6 +4,9 @@ import { LoadingReducer } from './reducers/LoadingReducer';
 import { ProjectCategoryReducer } from './reducers/ProjectCategoryReducer';
 import { ProjectReducer } from './reducers/ProjectReducer';
 import { DrawerCyberBugsReducer } from './reducers/DrawerCyberBugsReducer';
+import { TaskTypeReducer } from './reducers/TaskTypeReducer';
+import { PriorityReducer } from './reducers/PriorityReducer';
+import { StatusReducer } from './reducers/StatusReducer';
 // import thunk from 'redux-thunk';
 
 //middleware saga
@@ -18,6 +21,9 @@ const rootReducer = combineReducers({
     ProjectCategoryReducer,
     ProjectReducer,
     DrawerCyberBugsReducer,
+    TaskTypeReducer,
+    PriorityReducer,
+    StatusReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(middleWareSaga));

@@ -199,7 +199,7 @@ button:focus {
 }
 
 .main {
-    padding-left: 2%;
+    /* padding-left: 2%; */
 }
 .main .header .breadcrumb {
     margin-bottom: 0;

@@ -18,6 +18,25 @@ export const GET_USER_SAGA = 'GET_USER_SAGA';
 export const ASSIGN_USER_PROJECT_SAGA = 'ASSIGN_USER_PROJECT_SAGA';
 //-- Remove user from project
 export const REMOVE_USER_FROM_PROJECT_SAGA = 'REMOVE_USER_FROM_PROJECT_SAGA';
+//-- Get project detail
+export const GET_PROJECT_DETAIL_SAGA = 'GET_PROJECT_DETAIL_SAGA';
+// -- Get all task type
+export const GET_ALL_TASK_TYPE_SAGA = 'GET_ALL_TASK_TYPE_SAGA';
+
+// -- Get all Priority
+export const GET_ALL_PRIORITY_SAGA = 'GET_ALL_PRIORITY_SAGA';
+
+// -- Get all Status
+export const GET_ALL_STATUS_SAGA = 'GET_ALL_STATUS_SAGA';
+
+// -- Create task
+export const CREATE_TASK_SAGA = 'CREATE_TASK_SAGA';
+
+// -- Get user by project id
+export const GET_USER_BY_PROJECT_ID_SAGA = 'GET_USER_BY_PROJECT_ID_SAGA';
+
+// -- Get task detail
+export const GET_TASK_DETAIL_SAGA = 'GET_TASK_DETAIL_SAGA';
 
 // ----------- Action - Normal --------
 // -- Login
@@ -34,9 +53,32 @@ export const CLOSE_DRAWER = 'CLOSE_DRAWER';
 export const OPEN_FORM_EDIT_PROJECT = 'OPEN_FORM_EDIT_PROJECT';
 
 // -- Set submit edit form
-export const SET_SUBMIT_FROM_EDIT_PROJECT = 'SET_SUBMIT_FROM_EDIT_PROJECT';
+export const SET_SUBMIT_FORM_EDIT_PROJECT = 'SET_SUBMIT_FORM_EDIT_PROJECT';
+
+// -- Set submit create task
+export const SET_SUBMIT_FORM_CREATE_TASK = 'SET_SUBMIT_FORM_CREATE_TASK';
 
 // -- Edit project
 export const EDIT_PROJECT = 'EDIT_PROJECT';
 // -- Get users
 export const GET_USER = 'GET_USER';
+//-- Get project detail
+export const GET_PROJECT_DETAIL = 'GET_PROJECT_DETAIL';
+
+// -- Open form create task
+export const OPEN_FORM_CREATE_TASK = 'OPEN_FORM_CREATE_TASK';
+
+// -- Get all task type
+export const GET_ALL_TASK_TYPE = 'GET_ALL_TASK_TYPE';
+
+// -- Get all Priority
+export const GET_ALL_PRIORITY = 'GET_ALL_PRIORITY';
+
+// -- Get all Status
+export const GET_ALL_STATUS = 'GET_ALL_STATUS';
+
+// -- Get user by project id
+export const GET_USER_BY_PROJECT_ID = 'GET_USER_BY_PROJECT_ID';
+
+// -- Get task detail
+export const GET_TASK_DETAIL = 'GET_TASK_DETAIL';

@@ -7,8 +7,6 @@ import { GET_ALL_PRIORITY_SAGA, GET_ALL_STATUS_SAGA } from '~/redux/constants/Cy
 import { Avatar, InputNumber, Slider, Tooltip } from 'antd';
 
 const renderDescription = (text) => {
-  if (text == null) return;
-  // console.log('text is: ', text);
   return parse(text);
   // return text;
 };
@@ -185,7 +183,7 @@ function ModalCyberBugs(props) {
                         value={taskDetail.statusId}
                         onChange={() => {}}
                       >
-                        {arrStatus?.map((status) => (
+                        {arrStatus.map((status) => (
                           <option key={status.statusId} value={status.statusId}>
                             {status.statusName}
                           </option>
@@ -208,7 +206,7 @@ function ModalCyberBugs(props) {
                           cursor: 'pointer',
                         }}
                       >
-                        {taskDetail.assigness?.map((member) => (
+                        {taskDetail.assigness.map((member) => (
                           <Tooltip key={member.id} title={member.name} placement="top">
                             <Avatar
                               style={{
@@ -286,7 +284,7 @@ function ModalCyberBugs(props) {
                         value={taskDetail.priorityId}
                         onChange={() => {}}
                       >
-                        {arrPriority?.map((priority) => (
+                        {arrPriority.map((priority) => (
                           <option key={priority.priorityId} value={priority.priorityId}>
                             {priority.priority}
                           </option>

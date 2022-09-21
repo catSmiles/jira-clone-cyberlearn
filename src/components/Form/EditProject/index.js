@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import {
     GET_ALL_PROJECT_CATEGORY_SAGA,
-    SET_SUBMIT_FROM_EDIT_PROJECT,
+    SET_SUBMIT_FORM_EDIT_PROJECT,
     UPDATE_PROJECT_SAGA,
 } from '~/redux/constants/CyberBugs/UserCyberBugsSaga';
 
@@ -28,7 +28,7 @@ function FormEditProject() {
 
     // Class component - life circel => componentDidMount
     useEffect(() => {
-        dispatch({ type: SET_SUBMIT_FROM_EDIT_PROJECT, payload: formik.handleSubmit });
+        dispatch({ type: SET_SUBMIT_FORM_EDIT_PROJECT, payload: formik.handleSubmit });
     }, []);
 
     // Call API - GET ProjectCategory
