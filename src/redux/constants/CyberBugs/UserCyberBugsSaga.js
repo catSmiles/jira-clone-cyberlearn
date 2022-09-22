@@ -88,3 +88,12 @@ export const GET_TASK_DETAIL = 'GET_TASK_DETAIL';
 
 // -- update Status task
 export const UPDATE_STATUS_TASK = 'UPDATE_STATUS_TASK';
+
+// -- Change task modal
+export const CHANGE_TASK_MODAL = 'CHANGE_TASK_MODAL';
+
+// -- Change assigness
+export const CHANGE_ASSIGNESS = 'CHANGE_ASSIGNESS';
+
+// Remove user assigness
+export const REMOVE_USER_ASSIGNESS = 'REMOVE_USER_ASSIGNESS';
