@@ -1,23 +1,18 @@
 /* eslint-disable no-lone-blocks */
 /* eslint-disable react-hooks/exhaustive-deps */
-import './styles.scss';
 import { Editor } from '@tinymce/tinymce-react';
+import images from '~/assets/images';
 import { useSelector, useDispatch } from 'react-redux';
 import parse from 'html-react-parser';
 import { useEffect } from 'react';
 import {
-  ADD_COMMENT,
   CHANGE_ASSIGNESS,
   CHANGE_TASK_MODAL,
-  DELETE_COMMENT,
-  DELETE_COMMENT_SAGA,
   GET_ALL_PRIORITY_SAGA,
   GET_ALL_STATUS_SAGA,
   GET_ALL_TASK_TYPE_SAGA,
-  INSERT_COMMENT_SAGA,
+  GET_PROJECT_DETAIL_SAGA,
   REMOVE_USER_ASSIGNESS,
-  SET_ID_COMMENT_EDITING,
-  UPDATE_COMMENT_SAGA,
   UPDATE_STATUS_TASK_SAGA,
 } from '~/redux/constants/CyberBugs/UserCyberBugsSaga';
 import { Avatar, InputNumber, Select, Slider, Tooltip } from 'antd';
@@ -34,10 +29,6 @@ function ModalCyberBugs(props) {
   // Get taskDetail from reducer
   const { taskDetail } = useSelector((state) => state.ProjectReducer);
   console.log('taskDetail: ', taskDetail);
-
-  // get current user is login
-  const { userLogin } = useSelector((state) => state.UserReducer);
-  // console.log('userLogin: ', userLogin);
 
   const [visibleEditor, setVisibleEditor] = useState(false);
   const [contentEditor, setContentEditor] = useState(taskDetail.description);
@@ -116,203 +107,6 @@ function ModalCyberBugs(props) {
       </>
     );
   };
-
-  // comment
-  const [visibaleEditorComment, setVisibaleEditorComment] = useState(false);
-  const [contentComment, setContentComment] = useState('');
-  const [editContentComment, setEditContentComment] = useState('');
-  // const [visibleEditingComment, setVisibleEditingComment] = useState(false);
-
-  const renderMyBoxComment = () => {
-    return (
-      <>
-        {(visibaleEditorComment && (
-          <div className="editor-comment">
-            <Editor
-              name=""
-              onEditorChange={(content, editor) => {
-                setContentComment(content);
-              }}
-              // initialValue={taskDetail.description}
-              // value={taskDetail.description}
-              init={{
-                height: 200,
-                menubar: false,
-                plugins: [
-                  'advlist autolink lists link image charmap print preview anchor',
-                  'searchreplace visualblocks code fullscreen',
-                  'insertdatetime media table paste code help wordcount',
-                ],
-                toolbar:
-                  'undo redo | formatselect | ' +
-                  'bold italic backcolor | alignleft aligncenter ' +
-                  'alignright alignjustify | bullist numlist outdent indent | ' +
-                  'removeformat | help',
-                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-              }}
-            />
-            <div className="mt-2">
-              <button
-                className="btn btn-primary mr-2"
-                onClick={() => {
-                  if (contentComment === '') return;
-                  dispatch({
-                    type: INSERT_COMMENT_SAGA,
-                    newComment: {
-                      taskId: taskDetail.taskId,
-                      contentComment: contentComment,
-                    },
-                  });
-                  setVisibaleEditorComment(false);
-                }}
-              >
-                Save
-              </button>
-              <button
-                className="btn btn-light"
-                onClick={() => {
-                  setVisibaleEditorComment(false);
-                }}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        )) || (
-          <div
-            onClick={() => {
-              setVisibaleEditorComment(true);
-            }}
-            className="box-comment"
-          >
-            Add a comment...
-          </div>
-        )}
-      </>
-    );
-  };
-
-  const renderComments = (comment) => {
-    return (
-      <>
-        {(comment.editing && (
-          <div className="editor-comment">
-            <Editor
-              name="editComment"
-              value={comment.commentContent}
-              onEditorChange={(content, editor) => {
-                // setContentComment(content);
-                setEditContentComment(content);
-              }}
-              // initialValue={taskDetail.description}
-              // value={taskDetail.description}
-              init={{
-                height: 200,
-                menubar: false,
-                plugins: [
-                  'advlist autolink lists link image charmap print preview anchor',
-                  'searchreplace visualblocks code fullscreen',
-                  'insertdatetime media table paste code help wordcount',
-                ],
-                toolbar:
-                  'undo redo | formatselect | ' +
-                  'bold italic backcolor | alignleft aligncenter ' +
-                  'alignright alignjustify | bullist numlist outdent indent | ' +
-                  'removeformat | help',
-                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-              }}
-            />
-            <div className="mt-2">
-              <button
-                className="btn btn-primary mr-2"
-                onClick={() => {
-                  let content = comment.commentContent;
-                  if (editContentComment !== '') content = editContentComment;
-
-                  // alert(`${content} ${comment.id}`);
-
-                  dispatch({
-                    type: UPDATE_COMMENT_SAGA,
-                    componentUpdate: {
-                      id: comment.id,
-                      contentComment: content,
-                    },
-                    taskId: taskDetail.taskId,
-                  });
-
-                  dispatch({
-                    type: SET_ID_COMMENT_EDITING,
-                    payload: {
-                      idComment: comment.id,
-                      editing: false,
-                    },
-                  });
-                }}
-              >
-                Save
-              </button>
-              <button
-                className="btn btn-light"
-                onClick={() => {
-                  setEditContentComment(comment.commentContent);
-                  dispatch({
-                    type: SET_ID_COMMENT_EDITING,
-                    payload: {
-                      idComment: comment.id,
-                      editing: false,
-                    },
-                  });
-                }}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        )) || (
-          <>
-            <div className="mb-2 content-comment">{parse(comment.commentContent)}</div>
-
-            {userLogin.id === comment.idUser && (
-              <div className="action-comment">
-                <div
-                  onClick={() => {
-                    // dispatch action
-                    dispatch({
-                      type: SET_ID_COMMENT_EDITING,
-                      payload: {
-                        idComment: comment.id,
-                        editing: true,
-                      },
-                    });
-                  }}
-                >
-                  Edit
-                </div>
-                <div
-                  onClick={() => {
-                    handleDeleteComment({ idComment: comment.id, taskId: taskDetail.taskId });
-                  }}
-                >
-                  Delete
-                </div>
-              </div>
-            )}
-          </>
-        )}
-      </>
-    );
-  };
-
-  const handleDeleteComment = ({ idComment, taskId }) => {
-    // alert(`ididComment: ${idComment} taskId: ${taskId}`);
-    dispatch({
-      type: DELETE_COMMENT_SAGA,
-      idComment,
-      taskId,
-    });
-  };
-
-  const handleSaveComment = () => {};
 
   // get project detail
   const { projectDetail } = useSelector((state) => state.ProjectReducer);
@@ -447,61 +241,35 @@ function ModalCyberBugs(props) {
                   {/* Commment */}
                   <div className="comment">
                     <h6>Comments</h6>
-                    <div className="block-comment d-flex align-items-start mb-2">
-                      <div className="mr-2">
-                        <Tooltip title={userLogin.name}>
-                          <Avatar size="large" src={userLogin.avatar} />
-                        </Tooltip>
-                      </div>
-                      {/* <div className="avatar rounded-circle border">
+                    <div className="block-comment d-flex align-items-start">
+                      <div className="avatar rounded-circle border">
                         <img src={images.avatar1} alt="avatar" />
-                      </div> */}
+                      </div>
 
-                      <div className="input-comment mb-2">{renderMyBoxComment()}</div>
+                      <div className="input-comment">
+                        <input type="text" className="form-control" placeholder="Add a comment..." />
+                        <p>
+                          {/* <span style="font-weight: 500; color: gray;"> */}
+                          <span className="font-weight-bold text-secondary pr-1">Tip:</span>
+                          <span>
+                            press
+                            <span
+                              className="font-weight-bold d-inline-block px-2 m-2 text-secondary"
+                              style={{
+                                backgroundColor: '#ecedf0',
+                                color: '#b4bac6',
+                              }}
+                            >
+                              M
+                            </span>
+                            to comment.
+                          </span>
+                        </p>
+                      </div>
                     </div>
-
                     <div className="lastest-comment">
                       <div className="comment-item">
-                        {taskDetail.lstComment?.map((comment) => (
-                          <div key={comment.id} className="display-comment d-flex align-items-start mb-2">
-                            <div className="avatar rounded-circle border">
-                              <img src={comment.avatar} alt="" />
-                            </div>
-                            <div>
-                              <p className="mb-1">
-                                <span className="user-comment">{comment.name}</span>
-                              </p>
-
-                              {/* <div className="mb-2 content-comment">{parse(comment.commentContent)}</div>
-                              <div className="action-comment">
-                                <div
-                                  onClick={() => {
-                                    dispatch({
-                                      type: SET_ID_COMMENT_EDITING,
-                                      payload: {
-                                        idComment: comment.id,
-                                        editing: true,
-                                      },
-                                    });
-                                  }}
-                                >
-                                  Edit
-                                </div>
-                                <div
-                                  onClick={() => {
-                                    handleDeleteComment({ idComment: comment.id, taskId: taskDetail.taskId });
-                                  }}
-                                >
-                                  Delete
-                                </div>
-                              </div> */}
-
-                              {/* test */}
-                              {renderComments(comment)}
-                            </div>
-                          </div>
-                        ))}
-                        {/* <div className="display-comment d-flex align-items-start">
+                        <div className="display-comment d-flex align-items-start">
                           <div className="avatar rounded-circle border">
                             <img src={images.avatar1} alt="" />
                           </div>
@@ -526,7 +294,7 @@ function ModalCyberBugs(props) {
                               </span>
                             </div>
                           </div>
-                        </div> */}
+                        </div>
                       </div>
                     </div>
                   </div>

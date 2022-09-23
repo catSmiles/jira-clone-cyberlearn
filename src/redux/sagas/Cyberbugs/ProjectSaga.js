@@ -13,9 +13,11 @@ import {
   GET_TASK_DETAIL,
   GET_TASK_DETAIL_SAGA,
   GET_USER_BY_PROJECT_ID_SAGA,
+  HANDLE_CHANGE_POST_API_SAGA,
   REMOVE_USER_FROM_PROJECT_SAGA,
   UPDATE_PROJECT_SAGA,
   UPDATE_STATUS_TASK_SAGA,
+  UPDATE_TASK_SAGA,
 } from '~/redux/constants/CyberBugs/UserCyberBugsSaga';
 import { DISPLAY_LOADING, HIDE_LOADING } from '~/redux/constants/LoadingConstants';
 import { projectService } from '~/services/ProjectService';
@@ -345,3 +347,18 @@ function* updateStatusTaskSaga(action) {
 export function* theoDoiUpdateStatusTask() {
   yield takeLatest(UPDATE_STATUS_TASK_SAGA, updateStatusTaskSaga);
 }
+
+// ----- update Task
+// function* updateTaskSaga(action) {
+
+// }
+
+// export function* theoDoiUpdateTask() {
+//   yield takeLatest(UPDATE_TASK_SAGA, updateTaskSaga);
+// }
+
+// function* handleChangePostAPI(action) {}
+
+// export function* theoDoiHandleChangePostAPI() {
+//   yield takeLatest(HANDLE_CHANGE_POST_API_SAGA, handleChangePostAPI);
+// }

@@ -41,6 +41,24 @@ export const GET_TASK_DETAIL_SAGA = 'GET_TASK_DETAIL_SAGA';
 // -- update Status task
 export const UPDATE_STATUS_TASK_SAGA = 'UPDATE_STATUS_TASK_SAGA';
 
+// -- Update task
+export const UPDATE_TASK_SAGA = 'UPDATE_TASK_SAGA';
+
+// -- Handle change post api
+export const HANDLE_CHANGE_POST_API_SAGA = 'HANDLE_CHANGE_POST_API_SAGA';
+
+// -- get All Comment
+export const GET_ALL_COMMENT_SAGA = 'GET_ALL_COMMENT_SAGA';
+
+// insert Comment
+export const INSERT_COMMENT_SAGA = 'INSERT_COMMENT_SAGA';
+
+// delete Comment
+export const DELETE_COMMENT_SAGA = 'DELETE_COMMENT_SAGA';
+
+// Update comment
+export const UPDATE_COMMENT_SAGA = 'UPDATE_COMMENT_SAGA';
+
 // ----------- Action - Normal --------
 // -- Login
 export const USER_SIGN_IN = 'USER_SIGN_IN';
@@ -97,3 +115,24 @@ export const CHANGE_ASSIGNESS = 'CHANGE_ASSIGNESS';
 
 // Remove user assigness
 export const REMOVE_USER_ASSIGNESS = 'REMOVE_USER_ASSIGNESS';
+
+// -- Update task
+export const UPDATE_TASK = 'UPDATE_TASK';
+
+// -- get All Comment
+export const GET_ALL_COMMENT = 'GET_ALL_COMMENT';
+
+// Add a comment
+// export const ADD_COMMENT = 'ADD_COMMENT';
+
+// insert Comment
+export const INSERT_COMMENT = 'INSERT_COMMENT';
+
+// delete Comment
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+
+// Set Id comment editing
+export const SET_ID_COMMENT_EDITING = 'SET_ID_COMMENT_EDITING';
+
+// Update comment
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';

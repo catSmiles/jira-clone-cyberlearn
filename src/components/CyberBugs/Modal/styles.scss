@@ -1,0 +1,40 @@
+.box-comment {
+  padding: 12px 16px;
+  border-radius: 4px;
+  border: 1px solid rgb(223, 225, 230);
+  color: rgb(137, 147, 164);
+  cursor: pointer;
+  user-select: none;
+}
+
+.user-comment {
+  padding-right: 12px;
+  padding-bottom: 10px;
+  color: rgb(66, 82, 110);
+  font-weight: 500;
+}
+
+.content-comment {
+  color: rgb(23, 43, 77);
+  font-weight: 400;
+}
+
+.action-comment {
+  color: rgb(94, 108, 132);
+  font-size: 14.5px;
+  user-select: none;
+
+  & > div {
+    margin-right: 12px;
+    display: inline-block;
+    padding: 2px 0px;
+    cursor: pointer;
+    font-weight: 400;
+    transition: all 0.2s ease-in-out;
+    // border: 1px solid;
+    &:hover {
+      text-decoration: underline;
+      // color: red;
+    }
+  }
+}

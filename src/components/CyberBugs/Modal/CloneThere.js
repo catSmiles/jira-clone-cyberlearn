@@ -2,6 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './styles.scss';
 import { Editor } from '@tinymce/tinymce-react';
+import images from '~/assets/images';
 import { useSelector, useDispatch } from 'react-redux';
 import parse from 'html-react-parser';
 import { useEffect } from 'react';
@@ -11,13 +12,14 @@ import {
   CHANGE_TASK_MODAL,
   DELETE_COMMENT,
   DELETE_COMMENT_SAGA,
+  GET_ALL_COMMENT,
+  GET_ALL_COMMENT_SAGA,
   GET_ALL_PRIORITY_SAGA,
   GET_ALL_STATUS_SAGA,
   GET_ALL_TASK_TYPE_SAGA,
+  GET_PROJECT_DETAIL_SAGA,
   INSERT_COMMENT_SAGA,
   REMOVE_USER_ASSIGNESS,
-  SET_ID_COMMENT_EDITING,
-  UPDATE_COMMENT_SAGA,
   UPDATE_STATUS_TASK_SAGA,
 } from '~/redux/constants/CyberBugs/UserCyberBugsSaga';
 import { Avatar, InputNumber, Select, Slider, Tooltip } from 'antd';
@@ -120,8 +122,7 @@ function ModalCyberBugs(props) {
   // comment
   const [visibaleEditorComment, setVisibaleEditorComment] = useState(false);
   const [contentComment, setContentComment] = useState('');
-  const [editContentComment, setEditContentComment] = useState('');
-  // const [visibleEditingComment, setVisibleEditingComment] = useState(false);
+  const [visibleEditingComment, setVisibleEditingComment] = useState(false);
 
   const renderMyBoxComment = () => {
     return (
@@ -192,17 +193,15 @@ function ModalCyberBugs(props) {
     );
   };
 
-  const renderComments = (comment) => {
+  const renderComments = () => {
     return (
       <>
-        {(comment.editing && (
+        {(visibleEditingComment && (
           <div className="editor-comment">
             <Editor
-              name="editComment"
-              value={comment.commentContent}
+              name=""
               onEditorChange={(content, editor) => {
                 // setContentComment(content);
-                setEditContentComment(content);
               }}
               // initialValue={taskDetail.description}
               // value={taskDetail.description}
@@ -226,27 +225,15 @@ function ModalCyberBugs(props) {
               <button
                 className="btn btn-primary mr-2"
                 onClick={() => {
-                  let content = comment.commentContent;
-                  if (editContentComment !== '') content = editContentComment;
-
-                  // alert(`${content} ${comment.id}`);
-
-                  dispatch({
-                    type: UPDATE_COMMENT_SAGA,
-                    componentUpdate: {
-                      id: comment.id,
-                      contentComment: content,
-                    },
-                    taskId: taskDetail.taskId,
-                  });
-
-                  dispatch({
-                    type: SET_ID_COMMENT_EDITING,
-                    payload: {
-                      idComment: comment.id,
-                      editing: false,
-                    },
-                  });
+                  // if (contentComment === '') return;
+                  // dispatch({
+                  //   type: INSERT_COMMENT_SAGA,
+                  //   newComment: {
+                  //     taskId: taskDetail.taskId,
+                  //     contentComment: contentComment,
+                  //   },
+                  // });
+                  // setVisibaleEditorComment(false);
                 }}
               >
                 Save
@@ -254,14 +241,7 @@ function ModalCyberBugs(props) {
               <button
                 className="btn btn-light"
                 onClick={() => {
-                  setEditContentComment(comment.commentContent);
-                  dispatch({
-                    type: SET_ID_COMMENT_EDITING,
-                    payload: {
-                      idComment: comment.id,
-                      editing: false,
-                    },
-                  });
+                  // setVisibaleEditorComment(false);
                 }}
               >
                 Cancel
@@ -270,33 +250,15 @@ function ModalCyberBugs(props) {
           </div>
         )) || (
           <>
-            <div className="mb-2 content-comment">{parse(comment.commentContent)}</div>
-
-            {userLogin.id === comment.idUser && (
-              <div className="action-comment">
-                <div
-                  onClick={() => {
-                    // dispatch action
-                    dispatch({
-                      type: SET_ID_COMMENT_EDITING,
-                      payload: {
-                        idComment: comment.id,
-                        editing: true,
-                      },
-                    });
-                  }}
-                >
-                  Edit
-                </div>
-                <div
-                  onClick={() => {
-                    handleDeleteComment({ idComment: comment.id, taskId: taskDetail.taskId });
-                  }}
-                >
-                  Delete
-                </div>
+            {/* <div className="mb-2 content-comment">{parse(comment.commentContent)}</div> */}
+            <div className="action-comment">
+              <div onClick={() => {}}>Edit</div>
+              <div
+              // onClick={() => handleDeleteComment({ idComment: comment.id, taskId: taskDetail.taskId })}
+              >
+                Delete
               </div>
-            )}
+            </div>
           </>
         )}
       </>
@@ -304,7 +266,7 @@ function ModalCyberBugs(props) {
   };
 
   const handleDeleteComment = ({ idComment, taskId }) => {
-    // alert(`ididComment: ${idComment} taskId: ${taskId}`);
+    alert(`ididComment: ${idComment} taskId: ${taskId}`);
     dispatch({
       type: DELETE_COMMENT_SAGA,
       idComment,
@@ -312,7 +274,9 @@ function ModalCyberBugs(props) {
     });
   };
 
-  const handleSaveComment = () => {};
+  const handleEditComment = () => {
+    alert('Edit comment');
+  };
 
   // get project detail
   const { projectDetail } = useSelector((state) => state.ProjectReducer);
@@ -471,33 +435,37 @@ function ModalCyberBugs(props) {
                               <p className="mb-1">
                                 <span className="user-comment">{comment.name}</span>
                               </p>
-
-                              {/* <div className="mb-2 content-comment">{parse(comment.commentContent)}</div>
+                              {/* <p className="mb-2 content-comment">{comment.commentContent}</p> */}
+                              <div className="mb-2 content-comment">{parse(comment.commentContent)}</div>
                               <div className="action-comment">
                                 <div
                                   onClick={() => {
-                                    dispatch({
-                                      type: SET_ID_COMMENT_EDITING,
-                                      payload: {
-                                        idComment: comment.id,
-                                        editing: true,
-                                      },
-                                    });
+                                    handleEditComment();
                                   }}
                                 >
                                   Edit
                                 </div>
                                 <div
-                                  onClick={() => {
-                                    handleDeleteComment({ idComment: comment.id, taskId: taskDetail.taskId });
-                                  }}
+                                  // onClick={() => {
+                                  // alert('Deleted comment');
+                                  // dispatch((type: DELETE_COMMENT , idComment: comment.))
+
+                                  // dispatch({
+                                  //   type: DELETE_COMMENT,
+                                  //   idComment: comment.id,
+                                  //   taskId: taskDetail.taskId,
+                                  //   idUser: userLogin.id,
+                                  // });
+
+                                  // }}
+
+                                  onClick={() =>
+                                    handleDeleteComment({ idComment: comment.id, taskId: taskDetail.taskId })
+                                  }
                                 >
                                   Delete
                                 </div>
-                              </div> */}
-
-                              {/* test */}
-                              {renderComments(comment)}
+                              </div>
                             </div>
                           </div>
                         ))}

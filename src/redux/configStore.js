@@ -7,6 +7,7 @@ import { DrawerCyberBugsReducer } from './reducers/DrawerCyberBugsReducer';
 import { TaskTypeReducer } from './reducers/TaskTypeReducer';
 import { PriorityReducer } from './reducers/PriorityReducer';
 import { StatusReducer } from './reducers/StatusReducer';
+import { CommentReducer } from './reducers/CommentReducer';
 // import thunk from 'redux-thunk';
 
 //middleware saga
@@ -16,14 +17,15 @@ import { rootSaga } from './sagas/rootSaga';
 const middleWareSaga = createMiddleWareSaga();
 
 const rootReducer = combineReducers({
-    UserReducer,
-    LoadingReducer,
-    ProjectCategoryReducer,
-    ProjectReducer,
-    DrawerCyberBugsReducer,
-    TaskTypeReducer,
-    PriorityReducer,
-    StatusReducer,
+  UserReducer,
+  LoadingReducer,
+  ProjectCategoryReducer,
+  ProjectReducer,
+  DrawerCyberBugsReducer,
+  TaskTypeReducer,
+  PriorityReducer,
+  StatusReducer,
+  CommentReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(middleWareSaga));

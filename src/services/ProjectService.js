@@ -39,6 +39,9 @@ class ProjectService extends baseService {
   updateStatusTask = (taskStatusUpdate) => {
     return this.put('/api/Project/updateStatus', taskStatusUpdate);
   };
+  updateTask = (taskupdate) => {
+    return this.post('/api/Project/updateTask', taskupdate);
+  };
 }
 
 export const projectService = new ProjectService();

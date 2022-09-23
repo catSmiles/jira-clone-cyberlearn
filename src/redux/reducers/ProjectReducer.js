@@ -1,11 +1,14 @@
 import {
+  ADD_COMMENT,
   CHANGE_ASSIGNESS,
   CHANGE_TASK_MODAL,
+  DELETE_COMMENT,
   EDIT_PROJECT,
   GET_ALL_PROJECT,
   GET_PROJECT_DETAIL,
   GET_TASK_DETAIL,
   REMOVE_USER_ASSIGNESS,
+  SET_ID_COMMENT_EDITING,
 } from '../constants/CyberBugs/UserCyberBugsSaga';
 
 const stateDefault = {
@@ -45,6 +48,35 @@ export const ProjectReducer = (state = stateDefault, action) => {
     }
     case REMOVE_USER_ASSIGNESS: {
       state.taskDetail.assigness = [...state.taskDetail.assigness.filter((member) => member.id !== action.userId)];
+      return { ...state };
+    }
+    case DELETE_COMMENT: {
+      // state.taskDetail.lstComment = [
+      //   ...state.taskDetail.lstComment.filter((comment) => comment.id !== action.idComment),
+      // ];
+      // return { ...state };
+
+      state.taskDetail.lstComment = [
+        ...state.taskDetail.lstComment.filter((comment) => {
+          // if (comment.idUser === action.idUser) {
+          //   // alert('Ban khong co quyen xoa comment nay!');
+          //   return false;
+          // } else {
+          // }
+          return comment.id !== action.idComment;
+        }),
+      ];
+      return { ...state };
+    }
+    case SET_ID_COMMENT_EDITING: {
+      state.taskDetail.lstComment = [
+        ...state.taskDetail.lstComment.map((comment) => {
+          if (comment.id === action.payload.idComment) {
+            return { ...comment, editing: action.payload.editing };
+          }
+          return { ...comment, editing: false };
+        }),
+      ];
       return { ...state };
     }
     default:
