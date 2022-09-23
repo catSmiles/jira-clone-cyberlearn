@@ -1,7 +1,10 @@
-import { call, put, takeLatest, delay } from 'redux-saga/effects';
+/* eslint-disable no-lone-blocks */
+import { call, put, takeLatest, delay, select } from 'redux-saga/effects';
 import { history } from '~/App';
 import {
   ASSIGN_USER_PROJECT_SAGA,
+  CHANGE_ASSIGNESS,
+  CHANGE_TASK_MODAL,
   CLOSE_DRAWER,
   CREATE_PROJECT_SAGA,
   CREATE_TASK_SAGA,
@@ -14,6 +17,7 @@ import {
   GET_TASK_DETAIL_SAGA,
   GET_USER_BY_PROJECT_ID_SAGA,
   HANDLE_CHANGE_POST_API_SAGA,
+  REMOVE_USER_ASSIGNESS,
   REMOVE_USER_FROM_PROJECT_SAGA,
   UPDATE_PROJECT_SAGA,
   UPDATE_STATUS_TASK_SAGA,
@@ -349,16 +353,79 @@ export function* theoDoiUpdateStatusTask() {
 }
 
 // ----- update Task
-// function* updateTaskSaga(action) {
 
-// }
+function* handleChangePostAPI(action) {
+  // goi action lam thay doi task model
 
-// export function* theoDoiUpdateTask() {
-//   yield takeLatest(UPDATE_TASK_SAGA, updateTaskSaga);
-// }
+  yield delay(200);
 
-// function* handleChangePostAPI(action) {}
+  switch (action.actionType) {
+    case CHANGE_TASK_MODAL:
+      {
+        const { value, name } = action;
 
-// export function* theoDoiHandleChangePostAPI() {
-//   yield takeLatest(HANDLE_CHANGE_POST_API_SAGA, handleChangePostAPI);
-// }
+        yield put({
+          type: CHANGE_TASK_MODAL,
+          name,
+          value,
+        });
+      }
+      break;
+
+    case CHANGE_ASSIGNESS:
+      {
+        const { userSelected } = action;
+        yield put({
+          type: CHANGE_ASSIGNESS,
+          userSelected,
+        });
+      }
+      break;
+
+    case REMOVE_USER_ASSIGNESS:
+      {
+        const { userId } = action;
+        yield put({
+          type: REMOVE_USER_ASSIGNESS,
+          userId,
+        });
+      }
+      break;
+
+    default:
+      break;
+  }
+  // save qua api updateTaskSaga
+
+  // lay data tu modal xuong (sau khi da thay doi)
+  const { taskDetail } = yield select((state) => state.ProjectReducer);
+  console.log('taskDetail after user change: ', taskDetail);
+
+  // bien doi du lieu state.taskDetail thanh du lieu api can
+  const listUserAsign = taskDetail.assigness?.map((item) => item.id);
+  const taskDetailAPI = { ...taskDetail, listUserAsign };
+  // console.log('taskDetailAPI: ', taskDetailAPI);
+
+  try {
+    const { status } = yield call(() => projectService.updateTask(taskDetailAPI));
+    if (status === STATUS_CODE.SUCCESS) {
+      // cap nhat lai du lieu - get task detail
+      yield put({
+        type: GET_TASK_DETAIL_SAGA,
+        taskId: taskDetailAPI.taskId,
+      });
+
+      // Neu cap nhat thanh cong -> goi lai get project detail saga -> sap xep (cap nhat) lai thong tin cac task
+      yield put({
+        type: GET_PROJECT_DETAIL_SAGA,
+        projectId: taskDetailAPI.projectId,
+      });
+    }
+  } catch (error) {
+    console.log('error handleChangePostAPI: ', error);
+  }
+}
+
+export function* theoDoiHandleChangePostAPI() {
+  yield takeLatest(HANDLE_CHANGE_POST_API_SAGA, handleChangePostAPI);
+}

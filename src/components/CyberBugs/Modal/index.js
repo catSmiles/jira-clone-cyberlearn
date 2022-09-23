@@ -14,6 +14,7 @@ import {
   GET_ALL_PRIORITY_SAGA,
   GET_ALL_STATUS_SAGA,
   GET_ALL_TASK_TYPE_SAGA,
+  HANDLE_CHANGE_POST_API_SAGA,
   INSERT_COMMENT_SAGA,
   REMOVE_USER_ASSIGNESS,
   SET_ID_COMMENT_EDITING,
@@ -79,9 +80,15 @@ function ModalCyberBugs(props) {
               <button
                 className="btn btn-primary mr-2"
                 onClick={() => {
-                  // alert('clicked on save');
+                  // dispatch({
+                  //   type: CHANGE_TASK_MODAL,
+                  //   name: 'description',
+                  //   value: contentEditor,
+                  // });
+
                   dispatch({
-                    type: CHANGE_TASK_MODAL,
+                    type: HANDLE_CHANGE_POST_API_SAGA,
+                    actionType: CHANGE_TASK_MODAL,
                     name: 'description',
                     value: contentEditor,
                   });
@@ -312,8 +319,6 @@ function ModalCyberBugs(props) {
     });
   };
 
-  const handleSaveComment = () => {};
-
   // get project detail
   const { projectDetail } = useSelector((state) => state.ProjectReducer);
   console.log('projectDetail: ', projectDetail);
@@ -362,11 +367,18 @@ function ModalCyberBugs(props) {
 
   const handleChange = (e) => {
     const { value, name } = e.target;
-    console.log("your're changed task modal");
-    alert(`name is ${name}. Value is ${value}`);
+    // console.log("your're changed task modal");
+    // alert(`name is ${name}. Value is ${value}`);
+
+    // dispatch({
+    //   type: CHANGE_TASK_MODAL,
+    //   name,
+    //   value,
+    // });
 
     dispatch({
-      type: CHANGE_TASK_MODAL,
+      type: HANDLE_CHANGE_POST_API_SAGA,
+      actionType: CHANGE_TASK_MODAL,
       name,
       value,
     });
@@ -653,11 +665,16 @@ function ModalCyberBugs(props) {
                           style={{ fontSize: 18 }}
                           onClick={() => {
                             // alert(`clicked on uderId:  ${member.id}`);
+                            //dispatch({
+                            //   type: REMOVE_USER_ASSIGNESS,
+                            //   userId: member.id,
+                            // });
+
                             dispatch({
-                              type: REMOVE_USER_ASSIGNESS,
+                              type: HANDLE_CHANGE_POST_API_SAGA,
+                              actionType: REMOVE_USER_ASSIGNESS,
                               userId: member.id,
                             });
-                            // dispatch here - deleted
                           }}
                         >
                           <i className="fa fa-times"></i>
@@ -686,8 +703,14 @@ function ModalCyberBugs(props) {
                           userSelected = { ...userSelected, id: userSelected.userId };
                           //dispatchReducer
 
+                          // dispatch({
+                          //   type: CHANGE_ASSIGNESS,
+                          //   userSelected,
+                          // });
+
                           dispatch({
-                            type: CHANGE_ASSIGNESS,
+                            type: HANDLE_CHANGE_POST_API_SAGA,
+                            actionType: CHANGE_ASSIGNESS,
                             userSelected,
                           });
                         }}
