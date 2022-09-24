@@ -21,6 +21,8 @@ import {
 import { Avatar, InputNumber, Select, Slider, Tooltip } from 'antd';
 import { useState } from 'react';
 
+// search on select user - antd
+
 function ModalCyberBugs(props) {
   const dispatch = useDispatch();
 
@@ -313,7 +315,7 @@ function ModalCyberBugs(props) {
 
   // get project detail
   const { projectDetail } = useSelector((state) => state.ProjectReducer);
-  // console.log('projectDetail: ', projectDetail);
+  console.log('projectDetail: ', projectDetail);
 
   // Call API - get all TaskType
   const { arrTaskType } = useSelector((state) => state.TaskTypeReducer);
@@ -710,6 +712,8 @@ function ModalCyberBugs(props) {
                     </div>
                   </div>
 
+                  {/* reporter */}
+
                   {/* priority */}
                   <div className="priority">
                     <label htmlFor="priorityId" className="font-weight-bold mt-3 mb-2">
@@ -845,6 +849,11 @@ function ModalCyberBugs(props) {
                       </div>
                     </div> */}
                   </div>
+
+                  {/* <div style="color: #929398;"> */}
+                  {/* <div>Create at a month ago</div> */}
+                  {/* <div style="color: #929398;"> */}
+                  {/* <div>Update at a few seconds ago</div> */}
                 </div>
               </div>
             </div>
@@ -856,3 +865,81 @@ function ModalCyberBugs(props) {
 }
 
 export default ModalCyberBugs;
+
+// reporter
+{
+  // <div className="reporter">
+  //   <h6 className="font-weight-bold mt-3 mb-2">REPORTER</h6>
+  //   <div className="d-flex item align-items-center">
+  //     <div className="avatar mr-1">
+  //       <img src={images.avatar1} alt="" />
+  //     </div>
+  //     <p className="name">
+  //       Pickle Rick
+  //       <span className="d-inline-block pl-2 cursor-pointer">
+  //         <i className="fa fa-times"></i>
+  //       </span>
+  //     </p>
+  //   </div>
+  // </div>;
+}
+
+// descript
+{
+  /* <div className="font-weight-bold mb-2">Jira Software (software projects) issue types:</div>
+<div className="title">
+  <div className="title-item">
+    <h5>
+      <i className="fa fa-bug"></i>
+      <span className="d-inline-block ml-2">BUG</span>
+    </h5>
+    <p>A bug is a problem which impairs or prevents the function of a product.</p>
+  </div>
+  <div className="title-item">
+    <h5>
+      <i className="fa fa-book-reader"></i>
+      <span className="d-inline-block ml-2">STORY</span>
+    </h5>
+    <p>A user story is the smallest unit of work that needs to be done.</p>
+  </div>
+  <div className="title-item">
+    <h5>
+      <i className="fa fa-tasks"></i>
+      <span className="d-inline-block ml-2">TASK</span>
+    </h5>
+    <p>A task represents work that needs to be done</p>
+  </div>
+</div> */
+}
+
+// select
+
+// <Select
+// id=""
+// name=""
+// className="my-select form-control"
+// mode="multiple"
+// size="large"
+// options={projectDetail.members
+//   ?.filter((member) => {
+//     const index = taskDetail.assigness?.findIndex((user) => user.id === member.userId);
+//     return index !== -1 ? false : true;
+//   })
+//   .map((member) => ({ label: member.name, value: member.userId }))}
+// placeholder="Please select..."
+// optionFilterProp="label"
+// // defaultValue={['reactjs']}
+// // value={[]}
+// // onChange={(values) => formik.setFieldValue('listUserAsign', values)}
+// onChange={(values) => {
+//   console.log('value change select: ', values); // get many value
+// }}
+// onSearch={handleSearch}
+// onSelect={(value) => {
+//   console.log('value select: ', value); // get one value
+//   // formik.setFieldValue('listUserAsign', value);
+// }}
+// style={{
+//   width: '100%',
+// }}
+// />

@@ -6,7 +6,10 @@ function UserLoginTemplate({ Component, restRoute }) {
       render={(propsRoute) => {
         return (
           <>
-            <div className="h-screen flex items-center justify-center">
+            <div
+              className="d-flex flex-column align-items-center justify-content-center border"
+              style={{ height: '100vh' }}
+            >
               <Component />
             </div>
           </>

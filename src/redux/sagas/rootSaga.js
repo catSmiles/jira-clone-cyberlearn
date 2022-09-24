@@ -10,9 +10,13 @@ import * as CommentSaga from './Cyberbugs/CommentSaga';
 export function* rootSaga() {
   yield all([
     //Nghiệp vụ cyberbugs - Lang nghe
+    UsersSaga.theoDoiSignUp(),
     UsersSaga.theoDoiSignIn(),
     UsersSaga.theoDoiGetUser(),
     UsersSaga.theoDoiGetUserByProjectId(),
+    UsersSaga.theoDoiDeleteUser(),
+    UsersSaga.theoDoiEditUser(),
+
     // Nghiep vu projectCategorySaga
     ProjectCategorySaga.theoDoiGetAllProjectCategorySaga(),
 

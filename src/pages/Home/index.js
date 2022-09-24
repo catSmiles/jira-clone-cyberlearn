@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 function Home() {
   const { userLogin } = useSelector((state) => state.UserReducer);
-  console.log('userLogin at Home page: ', userLogin);
+  // console.log('userLogin at Home page: ', userLogin);
 
   return (
     <>

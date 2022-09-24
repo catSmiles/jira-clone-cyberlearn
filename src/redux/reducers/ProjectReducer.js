@@ -1,5 +1,4 @@
 import {
-  ADD_COMMENT,
   CHANGE_ASSIGNESS,
   CHANGE_TASK_MODAL,
   DELETE_COMMENT,
@@ -51,11 +50,6 @@ export const ProjectReducer = (state = stateDefault, action) => {
       return { ...state };
     }
     case DELETE_COMMENT: {
-      // state.taskDetail.lstComment = [
-      //   ...state.taskDetail.lstComment.filter((comment) => comment.id !== action.idComment),
-      // ];
-      // return { ...state };
-
       state.taskDetail.lstComment = [
         ...state.taskDetail.lstComment.filter((comment) => {
           // if (comment.idUser === action.idUser) {

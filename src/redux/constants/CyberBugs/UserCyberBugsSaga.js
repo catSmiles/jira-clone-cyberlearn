@@ -2,6 +2,16 @@
 
 // -- Login
 export const USER_SIGN_IN_API = 'USER_SIGN_IN_API';
+
+// logout
+export const USER_SIGN_UP_SAGA = 'USER_SIGN_UP_SAGA';
+
+// delete user
+export const DELETE_USER_SAGA = 'DELETE_USER_SAGA';
+
+// get user by id
+export const GET_USER_BY_ID_SAGA = 'GET_USER_BY_ID_SAGA';
+
 // -- Get project category
 export const GET_ALL_PROJECT_CATEGORY_SAGA = 'GET_ALL_PROJECT_CATEGORY_SAGA';
 // -- Create project
@@ -14,6 +24,10 @@ export const UPDATE_PROJECT_SAGA = 'UPDATE_PROJECT_SAGA';
 export const DELETE_PROJECT_SAGA = 'DELETE_PROJECT_SAGA';
 // -- Get users
 export const GET_USER_SAGA = 'GET_USER_SAGA';
+
+// -- update user
+export const UPDATE_USER_SAGA = 'UPDATE_USER_SAGA';
+
 // -- Assign user project
 export const ASSIGN_USER_PROJECT_SAGA = 'ASSIGN_USER_PROJECT_SAGA';
 //-- Remove user from project
@@ -73,21 +87,34 @@ export const CLOSE_DRAWER = 'CLOSE_DRAWER';
 // -- Open form edit project
 export const OPEN_FORM_EDIT_PROJECT = 'OPEN_FORM_EDIT_PROJECT';
 
+// Open form edit user
+export const OPEN_FORM_EDIT_USER = 'OPEN_FORM_EDIT_USER';
+
 // -- Set submit edit form
 export const SET_SUBMIT_FORM_EDIT_PROJECT = 'SET_SUBMIT_FORM_EDIT_PROJECT';
 
 // -- Set submit create task
 export const SET_SUBMIT_FORM_CREATE_TASK = 'SET_SUBMIT_FORM_CREATE_TASK';
 
+// -- set submit create user
+export const SET_SUBMIT_FORM_CREATE_USER = 'SET_SUBMIT_FORM_CREATE_USER';
+
+export const SET_SUBMIT_FORM_EDIT_USER = 'SET_SUBMIT_FORM_EDIT_USER';
+
 // -- Edit project
 export const EDIT_PROJECT = 'EDIT_PROJECT';
 // -- Get users
 export const GET_USER = 'GET_USER';
+
+export const EDIT_USER = 'EDIT_USER';
 //-- Get project detail
 export const GET_PROJECT_DETAIL = 'GET_PROJECT_DETAIL';
 
 // -- Open form create task
 export const OPEN_FORM_CREATE_TASK = 'OPEN_FORM_CREATE_TASK';
+
+// -- open form create user
+export const OPEN_FORM_CREATE_USER = 'OPEN_FORM_CREATE_USER';
 
 // -- Get all task type
 export const GET_ALL_TASK_TYPE = 'GET_ALL_TASK_TYPE';
@@ -136,3 +163,6 @@ export const SET_ID_COMMENT_EDITING = 'SET_ID_COMMENT_EDITING';
 
 // Update comment
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
+
+// get user by id
+export const GET_USER_BY_ID = 'GET_USER_BY_ID';
